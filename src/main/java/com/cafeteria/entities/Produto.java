@@ -28,14 +28,15 @@ public class Produto implements Serializable{
 	
 	private String descricao;
 	
-	private double valor;
+	private Double valor;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "produto")
 	private List<Venda> venda = new ArrayList<>();
 	
 	private String categoria;
 	
-	public Produto(Long id, String nome, String descricao, double valor, List<Venda> venda, String categoria) {
+	public Produto(Long id, String nome, String descricao, Double valor, List<Venda> venda, String categoria) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
@@ -80,12 +81,12 @@ public class Produto implements Serializable{
 	}
 
 
-	public double getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
 
-	public void setValor(double valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 

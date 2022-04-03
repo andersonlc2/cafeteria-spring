@@ -1,6 +1,5 @@
 package com.cafeteria.services;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +26,18 @@ public class VendaService {
 	
 	
 	public Venda insert(Venda obj) {
-		Venda venda= new Venda();
-		venda.setCliente(obj.getCliente());
-		venda.setProduto(obj.getProduto());
-		venda.setDt_venda(new Date());
-		repo.save(venda);
+		repo.save(obj);
 		return obj;
 	}
 	
 	
 	public Venda update(Venda obj) {
-		Venda prod = repo.findById(obj.getId()).get();
-		repo.save(prod);
-		return prod;
+		Venda venda = repo.findById(obj.getId()).get();
+		venda.setCliente(obj.getCliente());
+		venda.setProduto(obj.getProduto());
+		venda.setDt_venda(obj.getDt_venda());
+		repo.save(venda);
+		return venda;
 	}
 	
 	public void delete(Long id) {

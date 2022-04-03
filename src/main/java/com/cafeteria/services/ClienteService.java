@@ -38,8 +38,8 @@ public class ClienteService {
 	}
 	
 	
-	public Cliente update(Cliente obj) {
-		Cliente cli = repo.findById(obj.getId()).get();
+	public Cliente update(Long id, Cliente obj) {
+		Cliente cli = repo.findById(id).get();
 		cli.setTelefone(obj.getTelefone());
 		cli.setNome(obj.getNome());
 		repo.save(cli);

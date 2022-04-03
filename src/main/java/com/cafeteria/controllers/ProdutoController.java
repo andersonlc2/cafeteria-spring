@@ -17,38 +17,39 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cafeteria.entities.Cliente;
-import com.cafeteria.entities.dtos.ClienteDTO;
-import com.cafeteria.services.ClienteService;
+import com.cafeteria.entities.Produto;
+import com.cafeteria.entities.dtos.ProdutoDTO;
+import com.cafeteria.services.ProdutoService;
 
 @RestController
-@RequestMapping(value = "/clientes")
-public class ClienteController {
+@RequestMapping(value = "/produtos")
+public class ProdutoController {
 
 	
 	@Autowired
-	private ClienteService service;
+	private ProdutoService service;
 	
 	@GetMapping
-	public ResponseEntity<List<ClienteDTO>> finAll() {
-		List<Cliente> list = service.findAll();
-		List<ClienteDTO> listDto = list.stream().map(x -> new ClienteDTO(x)).collect(Collectors.toList());
+	public ResponseEntity<List<ProdutoDTO>> finAll() {
+		List<Produto> list = service.findAll();
+		List<ProdutoDTO> listDto = list.stream().map(x -> new ProdutoDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<ClienteDTO> findById(@PathVariable Long id){
-		Cliente cli = service.findById(id);	
-		ClienteDTO cliDto = new ClienteDTO(cli);
-		return ResponseEntity.ok().body(cliDto);
+	public ResponseEntity<ProdutoDTO> findById(@PathVariable Long id){
+		Produto prod = service.findById(id);		
+		ProdutoDTO prodDto = new ProdutoDTO(prod);
+		return ResponseEntity.ok().body(prodDto);
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> insert(@Validated @RequestBody Cliente obj){
-		obj = service.insert(obj);
+	public ResponseEntity<Void> insert(@Validated @RequestBody Produto obj){
+		service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		service.delete(id);
@@ -56,7 +57,7 @@ public class ClienteController {
 	}
 	
 	@PostMapping(value = "/{id}")
-	public ResponseEntity<Cliente> update(@PathVariable Long id, @RequestBody Cliente obj) {
+	public ResponseEntity<Cliente> update(@PathVariable Long id, @RequestBody Produto obj) {
 		service.update(id, obj);
 		return ResponseEntity.noContent().build();
 	}

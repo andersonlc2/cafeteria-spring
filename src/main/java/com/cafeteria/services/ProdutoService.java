@@ -36,7 +36,7 @@ public class ProdutoService {
 	}
 	
 	
-	public Produto update(Produto obj) {
+	public Produto update(Long id, Produto obj) {
 		Produto prod = repo.findById(obj.getId()).get();
 		prod.setNome(obj.getNome());
 		prod.setDescricao(obj.getDescricao());
